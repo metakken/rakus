@@ -146,40 +146,7 @@ public class syougi extends Application{
                     label1.setText("("+x+","+y+"）に移動できない");
                     flag_move = 0;
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              }
+}
 
 
         });
