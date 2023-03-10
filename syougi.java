@@ -42,7 +42,7 @@ public class syougi extends Application{
     public void start(Stage stage) throws Exception{
         stage.setTitle("将棋");
 
-        Canvas canvas = new Canvas(520,520);
+        Canvas canvas = new Canvas(770,500);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         GraphicsContext koma = canvas.getGraphicsContext2D();
@@ -50,28 +50,28 @@ public class syougi extends Application{
 
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(3);
-        gc.strokeLine(20,20,470,20);
-        gc.strokeLine(20,70,470,70);
-        gc.strokeLine(20,120,470,120);
-        gc.strokeLine(20,170,470,170);
-        gc.strokeLine(20,220,470,220);
-        gc.strokeLine(20,270,470,270);
-        gc.strokeLine(20,320,470,320);
-        gc.strokeLine(20,370,470,370);
-        gc.strokeLine(20,420,470,420);
-        gc.strokeLine(20,470,470,470);
-
-        gc.strokeLine(20,20,20,470);
-        gc.strokeLine(70,20,70,470);
-        gc.strokeLine(120,20,120,470);
-        gc.strokeLine(170,20,170,470);
-        gc.strokeLine(220,20,220,470);
-        gc.strokeLine(270,20,270,470);
-        gc.strokeLine(320,20,320,470);
-        gc.strokeLine(370,20,370,470);
-        gc.strokeLine(420,20,420,470);
-        gc.strokeLine(470,20,470,470);
-
+        int x1, x2, y1, y2;
+        x1=170;
+        x2=620; 
+        y1=20;
+        y2=20;
+        
+        while(y1<=470){
+          gc.strokeLine(x1, y1, x2, y2);
+          y1+=50;
+          y2+=50;
+        }
+        x1=170;
+        x2=170;
+        y1=20;
+        y2=470;
+        while(x1<=620){
+          gc.strokeLine(x1, y1, x2, y2);
+          x1+=50;
+          x2+=50;
+        }
+        
+        
         koma.setFill(Color.BLUE);
         koma.fillOval(20+3,20+3,50-6,50-6);
         koma.fillOval(70+3,20+3,50-6,50-6);
@@ -146,7 +146,40 @@ public class syougi extends Application{
                     label1.setText("("+x+","+y+"）に移動できない");
                     flag_move = 0;
                 }
-            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              }
 
 
         });
