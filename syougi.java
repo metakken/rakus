@@ -16,6 +16,7 @@ import javafx.util.Duration;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.animation.RotateTransition;
+import javafx.scene.paint.Color;
 
 import javafx.scene.input.MouseEvent;
 
@@ -49,11 +50,31 @@ public class syougi extends Application{
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         GraphicsContext koma = canvas.getGraphicsContext2D();
+        int x1, x2, y1, y2;
+
+      //盤面の色の塗りつぶし
+        gc.setFill( Color.rgb(255,222,117));
+        gc.fillRect(170,20,canvas.getWidth()-320,canvas.getHeight()-50); 
+      
+      //とった駒を置く場所を作成
+        gc.setStroke(Color.BLACK);
+        gc.setLineWidth(2);
+        gc.strokeLine(10, 20, 160,20 );
+        gc.strokeLine(10, 370, 160,370 );
+        gc.strokeLine(10, 20, 10,370 );
+        gc.strokeLine(160, 20, 160,370 );
+
+        gc.strokeLine(630, 120, 760,120 );
+        gc.strokeLine(630, 480, 760,480 );
+        gc.strokeLine(630, 120, 630,480 );
+        gc.strokeLine(760, 120, 760,480 );
+
+        
 
 
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(3);
-        int x1, x2, y1, y2;
+        
         x1=170;
         x2=620; 
         y1=20;
