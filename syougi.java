@@ -102,30 +102,26 @@ public class syougi extends Application{
         /*自分の駒*/        
 
         koma.setFill(Color.RED);
-        koma.fillOval(20+3,420+3,50-6,50-6);
-        koma.fillOval(70+3,420+3,50-6,50-6);
-        koma.fillOval(120+3,420+3,50-6,50-6);
-        koma.fillOval(170+3,420+3,50-6,50-6);
-        koma.fillOval(220+3,420+3,50-6,50-6);
-        koma.fillOval(270+3,420+3,50-6,50-6);
-        koma.fillOval(320+3,420+3,50-6,50-6);
-        koma.fillOval(370+3,420+3,50-6,50-6);
-        koma.fillOval(420+3,420+3,50-6,50-6);
+        kx1=173;
+        kx2=423;
+        ky1=44;
+        ky2=44;
+        while(kx1<=573){
+          koma.fillOval(kx1,kx2,ky1,ky2);
+          kx1+=50;
+        }
 
-        koma.fillOval(70+3,370+3,50-6,50-6);
-        koma.fillOval(370+3,370+3,50-6,50-6);
+        koma.fillOval(220+3,370+3,50-6,50-6);
+        koma.fillOval(520+3,370+3,50-6,50-6);
 
-        koma.fillOval(20+3,320+3,50-6,50-6);
-        koma.fillOval(70+3,320+3,50-6,50-6);
-        koma.fillOval(120+3,320+3,50-6,50-6);
-        koma.fillOval(170+3,320+3,50-6,50-6);
-        koma.fillOval(220+3,320+3,50-6,50-6);
-        koma.fillOval(270+3,320+3,50-6,50-6);
-        koma.fillOval(320+3,320+3,50-6,50-6);
-        koma.fillOval(370+3,320+3,50-6,50-6);
-        koma.fillOval(420+3,320+3,50-6,50-6);
-
-
+        kx1=173;
+        kx2=323;
+        ky1=44;
+        ky2=44;
+        while(kx1<=573){
+          koma.fillOval(kx1,kx2,ky1,ky2);
+          kx1+=50;
+        }
 
         Label label1 = new Label("Top");
 
