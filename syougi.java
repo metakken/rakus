@@ -20,10 +20,15 @@ import javafx.scene.paint.Color;
 
 import javafx.scene.input.MouseEvent;
 
+
 public class syougi extends Application{
     int x,y;
     int flag_move, flag_turn = 2, flag_koma;
     int temp_koma;
+    //相手が持っている駒の数を記録するための変数
+    int ekin, egin, ehisya, ekaku, ekei, ekyou, efu;
+    //自分が持っている駒の数を記録するための変数
+    int mkin, mgin, mhisya, mkaku, mkei, mkyou, mfu;
     /*1の位が・・・1=歩,2=角,3=飛車,4=香車,5=桂馬,6=銀,7=金,8=王*/
     /*10以上は自分の駒*/
     int[][] ary_ban = {{4,0,1,0,0,0,11,0,14},
@@ -57,20 +62,43 @@ public class syougi extends Application{
         gc.fillRect(170,20,canvas.getWidth()-320,canvas.getHeight()-50); 
       
       //とった駒を置く場所を作成
-        gc.setStroke(Color.BLACK);
-        gc.setLineWidth(2);
-        gc.strokeLine(10, 20, 160,20 );
-        gc.strokeLine(10, 370, 160,370 );
-        gc.strokeLine(10, 20, 10,370 );
-        gc.strokeLine(160, 20, 160,370 );
 
-        gc.strokeLine(630, 120, 760,120 );
-        gc.strokeLine(630, 480, 760,480 );
-        gc.strokeLine(630, 120, 630,480 );
-        gc.strokeLine(760, 120, 760,480 );
+        ekin=egin=ehisya=ekaku=ekei=ekyou=efu=0;
+        mkin=mgin=mhisya=mkaku=mkei=mkyou=mfu=0;
 
-        
+        Label ekin = new Label();
+        Label egin = new Label();
+        Label ehisya = new Label();
+        Label ekaku = new Label();
+        Label ekei = new Label();
+        Label ekyou = new Label();
+        Label efu = new Label();
 
+        ekin.setText("金 X "+this.ekin);
+        egin.setText("銀 X "+this.egin);
+        ehisya.setText("飛 X"+this.ehisya);
+        ekaku.setText("角 X "+ this.ekaku);
+        ekei.setText("桂 X "+this.ekei);
+        ekyou.setText("香 X"+this.ekyou);
+        efu.setText("歩 X"+this.efu);
+
+        ekin.setPrefSize(50, 50);
+
+        Label mkin = new Label();
+        Label mgin = new Label();
+        Label mhisya = new Label();
+        Label mkaku = new Label();
+        Label mkei = new Label();
+        Label mkyou = new Label();
+        Label mfu = new Label();
+
+        mkin.setText("金 X "+this.mkin);
+        mgin.setText("銀 X "+this.mgin);
+        mhisya.setText("飛 X"+this.mhisya);
+        mkaku.setText("角 X "+ this.mkaku);
+        mkei.setText("桂 X "+this.mkei);
+        mkyou.setText("香 X"+this.mkyou);
+        mfu.setText("歩 X"+this.mfu);
 
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(3);
@@ -300,8 +328,13 @@ public class syougi extends Application{
 
 
         VBox vbox = new VBox(); vbox.getChildren().addAll(label1,canvas);
+        
+        VBox ekoma = new VBox(); ekoma.getChildren().addAll(ekin,egin,ehisya,ekaku,ekei,ekyou,efu);
+        VBox mkoma = new VBox(); mkoma.getChildren().addAll(mkin,mgin,mhisya,mkaku,mkei,mkyou,mfu);
+        HBox window = new HBox();window.getChildren().addAll(ekoma,vbox,mkoma);
 
-        stage.setScene(new Scene(vbox));
+
+        stage.setScene(new Scene(window));
         stage.show();
     }
 }
