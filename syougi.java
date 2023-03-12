@@ -51,7 +51,7 @@ public class syougi extends Application{
     public void start(Stage stage) throws Exception{
         stage.setTitle("将棋");
 
-        Canvas canvas = new Canvas(770,500);
+        Canvas canvas = new Canvas(500,500);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         GraphicsContext koma = canvas.getGraphicsContext2D();
@@ -59,7 +59,7 @@ public class syougi extends Application{
 
       //盤面の色の塗りつぶし
         gc.setFill( Color.rgb(255,222,117));
-        gc.fillRect(170,20,canvas.getWidth()-320,canvas.getHeight()-50); 
+        gc.fillRect(20,20,canvas.getWidth()-50,canvas.getHeight()-50); 
       
       //とった駒を置く場所を作成
 
@@ -82,7 +82,14 @@ public class syougi extends Application{
         ekyou.setText("香 X"+this.ekyou);
         efu.setText("歩 X"+this.efu);
 
-        ekin.setPrefSize(50, 50);
+        ekin.setPrefSize(150, 50);
+        egin.setPrefSize(150, 50);
+        ehisya.setPrefSize(150, 50);
+        ekaku.setPrefSize(150, 50);
+        ekei.setPrefSize(150, 50);
+        ekyou.setPrefSize(150, 50);
+        efu.setPrefSize(150, 50);
+
 
         Label mkin = new Label();
         Label mgin = new Label();
@@ -100,11 +107,19 @@ public class syougi extends Application{
         mkyou.setText("香 X"+this.mkyou);
         mfu.setText("歩 X"+this.mfu);
 
+        mkin.setPrefSize(150, 50);
+        mgin.setPrefSize(150, 50);
+        mhisya.setPrefSize(150, 50);
+        mkaku.setPrefSize(150, 50);
+        mkei.setPrefSize(150, 50);
+        mkyou.setPrefSize(150, 50);
+        mfu.setPrefSize(150, 50);
+
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(3);
         
-        x1=170;
-        x2=620; 
+        x1=20;
+        x2=470; 
         y1=20;
         y2=20;
         
@@ -113,36 +128,36 @@ public class syougi extends Application{
           y1+=50;
           y2+=50;
         }
-        x1=170;
-        x2=170;
+        x1=20;
+        x2=20;
         y1=20;
         y2=470;
-        while(x1<=620){
+        while(x1<=470){
           gc.strokeLine(x1, y1, x2, y2);
           x1+=50;
           x2+=50;
         }
         
-        
+        //相手の駒
         koma.setFill(Color.BLUE);
         int kx1, kx2, ky1,ky2;
-        kx1=173;
+        kx1=23;
         kx2=23;
         ky1=44;
         ky2=44;
-        while(kx1<=573){
+        while(kx1<=423){
           koma.fillOval(kx1,kx2,ky1,ky2);
           kx1+=50;
         }
 
-        koma.fillOval(220+3,70+3,50-6,50-6);
-        koma.fillOval(520+3,70+3,50-6,50-6);
+        koma.fillOval(70+3,70+3,50-6,50-6);
+        koma.fillOval(370+3,70+3,50-6,50-6);
 
-        kx1=173;
+        kx1=23;
         kx2=123;
         ky1=44;
         ky2=44;
-        while(kx1<=573){
+        while(kx1<=423){
           koma.fillOval(kx1,kx2,ky1,ky2);
           kx1+=50;
         }
