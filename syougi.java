@@ -167,7 +167,75 @@ public class syougi extends Application{
                           if(ary_ban[x-1][y-1+1]>=11 || ary_ban[x-1][y-1+1]==0){c_koma[0] = ary_ban[x-1][y-1+1]; ary_banc[x-1][y-1+1] = 9;} 
                           break;
                         case 2:
-                          label1.setText("("+x+","+y+"）の駒は角(青)"); flag_koma=2; break;
+                          label1.setText("("+x+","+y+"）の駒は角(青)"); flag_koma=2; 
+                          count_masu = 0;
+                          count_masu2 = 0;
+                          count_masu3 = 0;
+                          count_masu4 = 0; 
+                          int flag_kaku = 0;    
+                          /*左上方向*/
+                          for( int i=1; y-1-i>-1; i++){
+                            if(x-1-i>-1){
+                              if(ary_ban[x-1-i][y-1-i]==0){
+                                c_koma[i-1] = ary_ban[x-1-i][y-1-i]; ary_banc[x-1-i][y-1-i] = 9;
+                              } else if(ary_ban[x-1-i][y-1-i]>=11){
+                                c_koma[i-1] = ary_ban[x-1-i][y-1-i]; ary_banc[x-1-i][y-1-i] = 9;
+                                flag_kaku++;
+                              } else if(ary_ban[x-1-i][y-1-i]>=1 && ary_ban[x-1-i][y-1-i]<=8) {flag_kaku++;}
+                              if(flag_kaku == 1){i = 9;} 
+                              count_masu++;
+                            }
+
+                          }
+                          if(flag_kaku != 1){flag_kaku = 1;}
+
+                          /*左下方向*/
+                          for( int i=1; y-1+i<9; i++){
+                            if(x-1-i>-1){
+                              if(ary_ban[x-1-i][y-1+i]==0){
+                                c_koma2[i-1] = ary_ban[x-1-i][y-1+i]; ary_banc[x-1-i][y-1+i] = 9;
+                              } else if(ary_ban[x-1-i][y-1+i]>=11){
+                                c_koma2[i-1] = ary_ban[x-1-i][y-1+i]; ary_banc[x-1-i][y-1+i] = 9;
+                                flag_kaku++;
+                              } else if(ary_ban[x-1-i][y-1+i]>=1 && ary_ban[x-1-i][y-1+i]<=8) {flag_kaku++;}
+                              if(flag_kaku == 2){i = 9;} 
+                              count_masu2++;
+                            }
+                            
+                          }
+                          if(flag_kaku != 2){flag_kaku = 2;}
+
+                          /*右上方向*/
+                          for( int i=1; x-1+i<9; i++){
+                            if(y-1-i>-1){
+                              if(ary_ban[x-1+i][y-1-i]==0){
+                                c_koma3[i-1] = ary_ban[x-1+i][y-1-i]; ary_banc[x-1+i][y-1-i] = 9;
+                              } else if(ary_ban[x-1+i][y-1]>=11){
+                                c_koma3[i-1] = ary_ban[x-1+i][y-1-i]; ary_banc[x-1+i][y-1-i] = 9;
+                                flag_kaku++;
+                              } else if(ary_ban[x-1+i][y-1-i]>=1 && ary_ban[x-1+i][y-1-i]<=8) {flag_kaku++;}
+                              if(flag_kaku == 3){i = 9;} 
+                              count_masu3++;
+                            }
+                            
+                          }
+                          if(flag_kaku != 3){flag_kaku = 3;}
+
+                          /*右下方向*/
+                          for( int i=1; x-1+i<9; i++){
+                            if(y-1+i<9){
+                              if(ary_ban[x-1+i][y-1+i]==0){
+                                c_koma4[i-1] = ary_ban[x-1+i][y-1+i]; ary_banc[x-1+i][y-1+i] = 9;
+                              } else if(ary_ban[x-1+i][y-1+i]>=11){
+                                c_koma4[i-1] = ary_ban[x-1+i][y-1+i]; ary_banc[x-1+i][y-1+i] = 9;
+                                flag_kaku++;
+                              } else if(ary_ban[x-1+i][y-1+i]>=1 && ary_ban[x-1+i][y-1+i]<=8) {flag_kaku++;}
+                              if(flag_kaku == 4){i = 9;} 
+                              count_masu4++;
+                            }
+                            
+                          }
+                          break;
                         case 3:
                           label1.setText("("+x+","+y+"）の駒は飛車(青)"); flag_koma=3;
                           count_masu = 0;
@@ -286,7 +354,74 @@ public class syougi extends Application{
                           if(ary_ban[x-1][y-1-1]<=8){c_koma[0] = ary_ban[x-1][y-1-1]; ary_banc[x-1][y-1-1] = 9;}
                           break;
                         case 2:
-                          label1.setText("("+x+","+y+"）の駒は角(赤)"); flag_koma=12; 
+                          label1.setText("("+x+","+y+"）の駒は角(赤)"); flag_koma=12;
+                          count_masu = 0;
+                          count_masu2 = 0;
+                          count_masu3 = 0;
+                          count_masu4 = 0; 
+                          int flag_kaku = 0;    
+                          /*左上方向*/
+                          for( int i=1; y-1-i>-1; i++){
+                            if(x-1-i>-i){
+                              if(ary_ban[x-1-i][y-1-i]==0){
+                                c_koma[i-1] = ary_ban[x-1-i][y-1-i]; ary_banc[x-1-i][y-1-i] = 9;
+                              } else if(ary_ban[x-1-i][y-1-i]<=8){
+                                c_koma[i-1] = ary_ban[x-1-i][y-1-i]; ary_banc[x-1-i][y-1-i] = 9;
+                                flag_kaku++;
+                              } else if(ary_ban[x-1-i][y-1-i]>=11 && ary_ban[x-1-i][y-1-i]<=18) {flag_kaku++;}
+                              if(flag_kaku == 1){i = 9;} 
+                              count_masu++;
+                            }
+                            
+                          }
+                          if(flag_kaku != 1){flag_kaku = 1;}
+
+                          /*左下方向*/
+                          for( int i=1; y-1+i<9; i++){
+                            if(x-1-i>-1){
+                              if(ary_ban[x-1-i][y-1+i]==0){
+                                c_koma2[i-1] = ary_ban[x-1-i][y-1+i]; ary_banc[x-1-i][y-1+i] = 9;
+                              } else if(ary_ban[x-1-i][y-1+i]<=8){
+                                c_koma2[i-1] = ary_ban[x-1-i][y-1+i]; ary_banc[x-1-i][y-1+i] = 9;
+                                flag_kaku++;
+                              } else if(ary_ban[x-1-i][y-1+i]>=11 && ary_ban[x-1-i][y-1+i]<=18) {flag_kaku++;}
+                              if(flag_kaku == 2){i = 9;} 
+                              count_masu2++;
+                            }
+                            
+                          }
+                          if(flag_kaku != 2){flag_kaku = 2;}
+
+                          /*右上方向*/
+                          for( int i=1; x-1+i<9; i++){
+                            if(y-1-i>-1){
+                              if(ary_ban[x-1+i][y-1-i]==0){
+                                c_koma3[i-1] = ary_ban[x-1+i][y-1-i]; ary_banc[x-1+i][y-1-i] = 9;
+                              } else if(ary_ban[x-1+i][y-1-i]<=8){
+                                c_koma3[i-1] = ary_ban[x-1+i][y-1-i]; ary_banc[x-1+i][y-1-i] = 9;
+                                flag_kaku++;
+                              } else if(ary_ban[x-1+i][y-1-i]>=11 && ary_ban[x-1+i][y-1-i]<=18) {flag_kaku++;}
+                              if(flag_kaku == 3){i = 9;} 
+                              count_masu3++;
+                            }
+                            
+                          }
+                          if(flag_kaku != 3){flag_kaku = 3;}
+
+                          /*右上方向*/
+                          for( int i=1; x-1+i<9; i++){
+                            if(y-1+i<9){
+                              if(ary_ban[x-1+i][y-1+i]==0){
+                                c_koma4[i-1] = ary_ban[x-1+i][y-1+i]; ary_banc[x-1+i][y-1+i] = 9;
+                              } else if(ary_ban[x-1+i][y-1+i]<=8){
+                                c_koma4[i-1] = ary_ban[x-1+i][y-1+i]; ary_banc[x-1+i][y-1+i] = 9;
+                                flag_kaku++;
+                              } else if(ary_ban[x-1+i][y-1+i]>=11 && ary_ban[x-1+i][y-1+i]<=18) {flag_kaku++;}
+                              if(flag_kaku == 4){i = 9;} 
+                              count_masu4++;
+                            }
+                            
+                          } 
                           break;
                         case 3:
                           label1.setText("("+x+","+y+"）の駒は飛車(赤)"); flag_koma=13; 
@@ -416,6 +551,18 @@ public class syougi extends Application{
                           break;
                         case 2:
                           label1.setText("("+x+","+y+"）の駒は角(青)"); 
+                          for( int i=1; temp_y-1-i<count_masu; i++){
+                            ary_ban[temp_x-1-i][temp_y-1-i] = c_koma[i-1]; 
+                          }
+                          for( int i=1; temp_y-1+i<count_masu2; i++){
+                            ary_ban[temp_x-1-i][temp_y-1+i] = c_koma2[i-1]; 
+                          }
+                          for( int i=1; temp_x-1+i<count_masu3; i++){
+                            ary_ban[temp_x-1+i][temp_y-1-i] = c_koma3[i-1]; 
+                          }
+                          for( int i=1; temp_x-1+i<count_masu4; i++){
+                            ary_ban[temp_x-1+i][temp_y+i] = c_koma4[i-1]; 
+                          }
                           break;
                         case 3:
                           label1.setText("("+x+","+y+"）の駒は飛車(青)"); 
@@ -423,13 +570,13 @@ public class syougi extends Application{
                             ary_ban[temp_x-1][temp_y-1-i] = c_koma[i-1]; 
                           }
                           for( int i=1; temp_y-1+i<count_masu2; i++){
-                            ary_ban[temp_x-1][temp_y-1+i] = c_koma[i-1]; 
+                            ary_ban[temp_x-1][temp_y-1+i] = c_koma2[i-1]; 
                           }
                           for( int i=1; temp_x-1+i<count_masu3; i++){
-                            ary_ban[temp_x-1+i][temp_y-1] = c_koma[i-1]; 
+                            ary_ban[temp_x-1+i][temp_y-1] = c_koma3[i-1]; 
                           }
                           for( int i=1; temp_x-1-i<count_masu4; i++){
-                            ary_ban[temp_x-1-i][temp_y-1] = c_koma[i-1]; 
+                            ary_ban[temp_x-1-i][temp_y-1] = c_koma4[i-1]; 
                           }
                           break;
                         case 4:
@@ -487,6 +634,18 @@ public class syougi extends Application{
                           break;
                         case 2:
                           label1.setText("("+x+","+y+"）の駒は角(赤)"); 
+                          for( int i=1; temp_y-1-i<count_masu; i++){
+                            ary_ban[temp_x-1-i][temp_y-1-i] = c_koma[i-1]; 
+                          }
+                          for( int i=1; temp_y-1+i<count_masu2; i++){
+                            ary_ban[temp_x-1-i][temp_y-1+i] = c_koma2[i-1]; 
+                          }
+                          for( int i=1; temp_x-1+i<count_masu3; i++){
+                            ary_ban[temp_x-1+i][temp_y-1-i] = c_koma3[i-1]; 
+                          }
+                          for( int i=1; temp_x-1+i<count_masu4; i++){
+                            ary_ban[temp_x-1+i][temp_y+i] = c_koma4[i-1]; 
+                          }
                           break;
                         case 3:
                           label1.setText("("+x+","+y+"）の駒は飛車(赤)");
@@ -494,13 +653,13 @@ public class syougi extends Application{
                             ary_ban[temp_x-1][temp_y-1-i] = c_koma[i-1]; 
                           }
                           for( int i=1; temp_y-1+i<count_masu2; i++){
-                            ary_ban[temp_x-1][temp_y-1+i] = c_koma[i-1]; 
+                            ary_ban[temp_x-1][temp_y-1+i] = c_koma2[i-1]; 
                           }
                           for( int i=1; temp_x-1+i<count_masu3; i++){
-                            ary_ban[temp_x-1+i][temp_y-1] = c_koma[i-1]; 
+                            ary_ban[temp_x-1+i][temp_y-1] = c_koma3[i-1]; 
                           }
                           for( int i=1; temp_x-1-i<count_masu4; i++){
-                            ary_ban[temp_x-1-i][temp_y-1] = c_koma[i-1]; 
+                            ary_ban[temp_x-1-i][temp_y-1] = c_koma4[i-1]; 
                           }
                           break;
                         case 4:
