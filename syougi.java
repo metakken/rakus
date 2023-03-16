@@ -16,8 +16,10 @@ import javafx.util.Duration;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.animation.RotateTransition;
+import javafx.scene.paint.Color;
 
 import javafx.scene.input.MouseEvent;
+
 
 public class syougi extends Application{
     int x,y;
@@ -28,6 +30,11 @@ public class syougi extends Application{
     int c_koma4[] = new int[8];/*飛車・角行用*/
     int c_koma5[] = new int[8];/*馬・龍用*/
 
+    int temp_koma;
+    //相手が持っている駒の数を記録するための変数
+    int ekin, egin, ehisya, ekaku, ekei, ekyou, efu;
+    //自分が持っている駒の数を記録するための変数
+    int mkin, mgin, mhisya, mkaku, mkei, mkyou, mfu;
     /*1の位が・・・1=歩,2=角,3=飛車,4=香車,5=桂馬,6=銀,7=金,8=王*/
     /*11以上かつ18以下は自分の駒*/
     /*成り駒は+20*/
@@ -75,17 +82,75 @@ public class syougi extends Application{
     public void start(Stage stage) throws Exception{
         stage.setTitle("将棋");
 
-        Canvas canvas = new Canvas(770,500);
+        Canvas canvas = new Canvas(500,500);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         GraphicsContext koma = canvas.getGraphicsContext2D();
+        int x1, x2, y1, y2;
 
+      //盤面の色の塗りつぶし
+        gc.setFill( Color.rgb(255,222,117));
+        gc.fillRect(20,20,canvas.getWidth()-50,canvas.getHeight()-50); 
+      
+      //とった駒を置く場所を作成
+
+        ekin=egin=ehisya=ekaku=ekei=ekyou=efu=0;
+        mkin=mgin=mhisya=mkaku=mkei=mkyou=mfu=0;
+
+        Label ekin = new Label();
+        Label egin = new Label();
+        Label ehisya = new Label();
+        Label ekaku = new Label();
+        Label ekei = new Label();
+        Label ekyou = new Label();
+        Label efu = new Label();
+
+        ekin.setText("金 X "+this.ekin);
+        egin.setText("銀 X "+this.egin);
+        ehisya.setText("飛 X"+this.ehisya);
+        ekaku.setText("角 X "+ this.ekaku);
+        ekei.setText("桂 X "+this.ekei);
+        ekyou.setText("香 X"+this.ekyou);
+        efu.setText("歩 X"+this.efu);
+
+        ekin.setPrefSize(150, 50);
+        egin.setPrefSize(150, 50);
+        ehisya.setPrefSize(150, 50);
+        ekaku.setPrefSize(150, 50);
+        ekei.setPrefSize(150, 50);
+        ekyou.setPrefSize(150, 50);
+        efu.setPrefSize(150, 50);
+
+
+        Label mkin = new Label();
+        Label mgin = new Label();
+        Label mhisya = new Label();
+        Label mkaku = new Label();
+        Label mkei = new Label();
+        Label mkyou = new Label();
+        Label mfu = new Label();
+
+        mkin.setText("金 X "+this.mkin);
+        mgin.setText("銀 X "+this.mgin);
+        mhisya.setText("飛 X"+this.mhisya);
+        mkaku.setText("角 X "+ this.mkaku);
+        mkei.setText("桂 X "+this.mkei);
+        mkyou.setText("香 X"+this.mkyou);
+        mfu.setText("歩 X"+this.mfu);
+
+        mkin.setPrefSize(150, 50);
+        mgin.setPrefSize(150, 50);
+        mhisya.setPrefSize(150, 50);
+        mkaku.setPrefSize(150, 50);
+        mkei.setPrefSize(150, 50);
+        mkyou.setPrefSize(150, 50);
+        mfu.setPrefSize(150, 50);
 
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(3);
-        int x1, x2, y1, y2;
-        x1=170;
-        x2=620; 
+        
+        x1=20;
+        x2=470; 
         y1=20;
         y2=20;
         
@@ -94,41 +159,40 @@ public class syougi extends Application{
           y1+=50;
           y2+=50;
         }
-        x1=170;
-        x2=170;
+        x1=20;
+        x2=20;
         y1=20;
         y2=470;
-        while(x1<=620){
+        while(x1<=470){
           gc.strokeLine(x1, y1, x2, y2);
           x1+=50;
           x2+=50;
         }
         
-        
+        //相手の駒
         koma.setFill(Color.BLUE);
-        koma.fillOval(20+3,20+3,50-6,50-6);
-        koma.fillOval(70+3,20+3,50-6,50-6);
-        koma.fillOval(120+3,20+3,50-6,50-6);
-        koma.fillOval(170+3,20+3,50-6,50-6);
-        koma.fillOval(220+3,20+3,50-6,50-6);
-        koma.fillOval(270+3,20+3,50-6,50-6);
-        koma.fillOval(320+3,20+3,50-6,50-6);
-        koma.fillOval(370+3,20+3,50-6,50-6);
-        koma.fillOval(420+3,20+3,50-6,50-6);
+        int kx1, kx2, ky1,ky2;
+        kx1=23;
+        kx2=23;
+        ky1=44;
+        ky2=44;
+        while(kx1<=423){
+          koma.fillOval(kx1,kx2,ky1,ky2);
+          kx1+=50;
+        }
 
         koma.fillOval(70+3,70+3,50-6,50-6);
         koma.fillOval(370+3,70+3,50-6,50-6);
 
-        koma.fillOval(20+3,120+3,50-6,50-6);
-        koma.fillOval(70+3,120+3,50-6,50-6);
-        koma.fillOval(120+3,120+3,50-6,50-6);
-        koma.fillOval(170+3,120+3,50-6,50-6);
-        koma.fillOval(220+3,120+3,50-6,50-6);
-        koma.fillOval(270+3,120+3,50-6,50-6);
-        koma.fillOval(320+3,120+3,50-6,50-6);
-        koma.fillOval(370+3,120+3,50-6,50-6);
-        koma.fillOval(420+3,120+3,50-6,50-6);
-
+        kx1=23;
+        kx2=123;
+        ky1=44;
+        ky2=44;
+        while(kx1<=423){
+          koma.fillOval(kx1,kx2,ky1,ky2);
+          kx1+=50;
+        }
+        
         
         /*自分の駒*/        
 
@@ -1280,8 +1344,13 @@ public class syougi extends Application{
 
 
         VBox vbox = new VBox(); vbox.getChildren().addAll(label1,canvas);
+        
+        VBox ekoma = new VBox(); ekoma.getChildren().addAll(ekin,egin,ehisya,ekaku,ekei,ekyou,efu);
+        VBox mkoma = new VBox(); mkoma.getChildren().addAll(mkin,mgin,mhisya,mkaku,mkei,mkyou,mfu);
+        HBox window = new HBox();window.getChildren().addAll(ekoma,vbox,mkoma);
 
-        stage.setScene(new Scene(vbox));
+
+        stage.setScene(new Scene(window));
         stage.show();
     }
 }
