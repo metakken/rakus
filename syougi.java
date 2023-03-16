@@ -22,9 +22,11 @@ import javafx.scene.input.MouseEvent;
 public class syougi extends Application{
     int x,y;
     int flag_move, flag_turn = 2, flag_koma;
-    int c_koma2[] = new int[8];
-    int c_koma3[] = new int[8];
-    int c_koma4[] = new int[8];
+    int c_koma[] = new int[8];
+    int c_koma2[] = new int[8];/*飛車・角行用*/
+    int c_koma3[] = new int[8];/*飛車・角行用*/
+    int c_koma4[] = new int[8];/*飛車・角行用*/
+    int c_koma5[] = new int[8];/*馬・龍用*/
 
     /*1の位が・・・1=歩,2=角,3=飛車,4=香車,5=桂馬,6=銀,7=金,8=王*/
     /*11以上かつ18以下は自分の駒*/
@@ -362,6 +364,142 @@ public class syougi extends Application{
                           if((ary_ban[x-1+1][y-1]>=11 || ary_ban[x-1+1][y-1] <=18) || ary_ban[x-1+1][y-1]==0 || (ary_ban[x-1+1][y-1] >= 31 && ary_ban[x-1+1][y-1] <=36)){c_koma[4] = ary_ban[x-1+1][y-1]; ary_banc[x-1+1][y-1] = 9;}
                           if((ary_ban[x-1][y-1-1]>=11 || ary_ban[x-1][y-1-1] <=18) || ary_ban[x-1][y-1-1]==0 || (ary_ban[x-1][y-1-1] >= 31 && ary_ban[x-1][y-1-1] <=36)){c_koma[5] = ary_ban[x-1][y-1-1]; ary_banc[x-1][y-1-1] = 9;}
                           break;
+                        case 22:
+                          label1.setText("("+x+","+y+"）の駒は馬(青)"); flag_koma=22; 
+                          count_masu = 0;
+                          count_masu2 = 0;
+                          count_masu3 = 0;
+                          count_masu4 = 0; 
+                          int flag_kaku2 = 0;    
+                          /*左上方向*/
+                          for( int i=1; y-1-i>-1; i++){
+                            if(x-1-i>-1){
+                              if(ary_ban[x-1-i][y-1-i]==0){
+                                c_koma[i-1] = ary_ban[x-1-i][y-1-i]; ary_banc[x-1-i][y-1-i] = 9;
+                              } else if((ary_ban[x-1-i][y-1-i]>=11 && ary_ban[x-1-i][y-1-i] <=18) || (ary_ban[x-1-i][y-1-i] >= 31 && ary_ban[x-1-i][y-1-i] <=36)){
+                                c_koma[i-1] = ary_ban[x-1-i][y-1-i]; ary_banc[x-1-i][y-1-i] = 9;
+                                flag_kaku2++;
+                              } else if((ary_ban[x-1-i][y-1-i]>=1 && ary_ban[x-1-i][y-1-i]<=8) || (ary_ban[x-1-i][y-1-i] >= 21 && ary_ban[x-1-i][y-1-i] <=26)) {flag_kaku2++;}
+                              if(flag_kaku2 == 1){i = 9;} 
+                              count_masu++;
+                            }
+
+                          }
+                          if(flag_kaku2 != 1){flag_kaku2 = 1;}
+
+                          /*左下方向*/
+                          for( int i=1; y-1+i<9; i++){
+                            if(x-1-i>-1){
+                              if(ary_ban[x-1-i][y-1+i]==0){
+                                c_koma2[i-1] = ary_ban[x-1-i][y-1+i]; ary_banc[x-1-i][y-1+i] = 9;
+                              } else if((ary_ban[x-1-i][y-1+i]>=11 && ary_ban[x-1-i][y-1+i] <=18) || (ary_ban[x-1-i][y-1+i] >= 31 && ary_ban[x-1-i][y-1+i] <=36)){
+                                c_koma2[i-1] = ary_ban[x-1-i][y-1+i]; ary_banc[x-1-i][y-1+i] = 9;
+                                flag_kaku2++;
+                              } else if((ary_ban[x-1-i][y-1+i]>=1 && ary_ban[x-1-i][y-1+i]<=8) || (ary_ban[x-1-i][y-1+i] >= 21 && ary_ban[x-1-i][y-1+i] <=26)) {flag_kaku2++;}
+                              if(flag_kaku2 == 2){i = 9;} 
+                              count_masu2++;
+                            }
+                            
+                          }
+                          if(flag_kaku2 != 2){flag_kaku2 = 2;}
+
+                          /*右上方向*/
+                          for( int i=1; x-1+i<9; i++){
+                            if(y-1-i>-1){
+                              if(ary_ban[x-1+i][y-1-i]==0){
+                                c_koma3[i-1] = ary_ban[x-1+i][y-1-i]; ary_banc[x-1+i][y-1-i] = 9;
+                              } else if((ary_ban[x-1+i][y-1]>=11 && ary_ban[x-1+i][y-1-i] <=18) || (ary_ban[x-1+i][y-1-i] >= 31 && ary_ban[x-1+i][y-1-i] <=36)){
+                                c_koma3[i-1] = ary_ban[x-1+i][y-1-i]; ary_banc[x-1+i][y-1-i] = 9;
+                                flag_kaku2++;
+                              } else if((ary_ban[x-1+i][y-1-i]>=1 && ary_ban[x-1+i][y-1-i]<=8) || (ary_ban[x-1+i][y-1-i] >= 21 && ary_ban[x-1+i][y-1-i] <=26)) {flag_kaku2++;}
+                              if(flag_kaku2 == 3){i = 9;} 
+                              count_masu3++;
+                            }
+                            
+                          }
+                          if(flag_kaku2 != 3){flag_kaku2 = 3;}
+
+                          /*右下方向*/
+                          for( int i=1; x-1+i<9; i++){
+                            if(y-1+i<9){
+                              if(ary_ban[x-1+i][y-1+i]==0){
+                                c_koma4[i-1] = ary_ban[x-1+i][y-1+i]; ary_banc[x-1+i][y-1+i] = 9;
+                              } else if((ary_ban[x-1+i][y-1+i]>=11 && ary_ban[x-1+i][y-1+i] <=18) || (ary_ban[x-1+i][y-1+i] >= 31 && ary_ban[x-1+i][y-1+i] <=36)){
+                                c_koma4[i-1] = ary_ban[x-1+i][y-1+i]; ary_banc[x-1+i][y-1+i] = 9;
+                                flag_kaku2++;
+                              } else if((ary_ban[x-1+i][y-1+i]>=1 && ary_ban[x-1+i][y-1+i]<=8) || (ary_ban[x-1+i][y-1+i] >= 21 && ary_ban[x-1+i][y-1+i] <=26)) {flag_kaku2++;}
+                              if(flag_kaku2 == 4){i = 9;} 
+                              count_masu4++;
+                            }
+                            
+                          }
+                          if((ary_ban[x-1][y-1+1]>=11 || ary_ban[x-1][y-1+1] <=18) || ary_ban[x-1][y-1+1]==0 || (ary_ban[x-1][y-1+1] >= 31 && ary_ban[x-1][y-1+1] <=36)){c_koma5[0] = ary_ban[x-1][y-1+1]; ary_banc[x-1][y-1+1] = 9;}/*下*/
+                          if((ary_ban[x-1-1][y-1]>=11 || ary_ban[x-1-1][y-1] <=18) || ary_ban[x-1-1][y-1]==0 || (ary_ban[x-1-1][y-1] >= 31 && ary_ban[x-1-1][y-1] <=36)){c_koma5[1] = ary_ban[x-1-1][y-1]; ary_banc[x-1-1][y-1] = 9;}/*左*/
+                          if((ary_ban[x-1+1][y-1]>=11 || ary_ban[x-1+1][y-1] <=18) || ary_ban[x-1+1][y-1]==0 || (ary_ban[x-1+1][y-1] >= 31 && ary_ban[x-1+1][y-1] <=36)){c_koma5[2] = ary_ban[x-1+1][y-1]; ary_banc[x-1+1][y-1] = 9;}/*右*/
+                          if((ary_ban[x-1][y-1-1]>=11 || ary_ban[x-1][y-1-1] <=18) || ary_ban[x-1][y-1-1]==0 || (ary_ban[x-1][y-1-1] >= 31 && ary_ban[x-1][y-1-1] <=36)){c_koma5[3] = ary_ban[x-1][y-1-1]; ary_banc[x-1][y-1-1] = 9;}/*上*/
+                          break;
+                        case 23:
+                          label1.setText("("+x+","+y+"）の駒は飛車(青)"); flag_koma=3;
+                          count_masu = 0;
+                          count_masu2 = 0;
+                          count_masu3 = 0;
+                          count_masu4 = 0; 
+                          int flag_h2 = 0;    
+                          /*上方向*/
+                          for( int i=1; y-1-i>-1; i++){
+                            if(ary_ban[x-1][y-1-i]==0){
+                              c_koma[i-1] = ary_ban[x-1][y-1-i]; ary_banc[x-1][y-1-i] = 9;
+                            } else if((ary_ban[x-1][y-1-i]>=11 && ary_ban[x-1][y-1-i] <=18) || (ary_ban[x-1][y-1-i] >= 31 && ary_ban[x-1][y-1-i] <=36)){
+                              c_koma[i-1] = ary_ban[x-1][y-1-i]; ary_banc[x-1][y-1-i] = 9;
+                              flag_h2++;
+                            } else if((ary_ban[x-1][y-1-i]>=1 && ary_ban[x-1][y-1-i]<=8) || (ary_ban[x-1][y-1-i] >= 21 && ary_ban[x-1][y-1-i] <=26)) {flag_h2++;}
+                            if(flag_h2 == 1){i = 9;} 
+                            count_masu++;
+                          }
+                          if(flag_h2 != 1){flag_h2 = 1;}
+
+                          /*下方向*/
+                          for( int i=1; y-1+i<9; i++){
+                            if(ary_ban[x-1][y-1+i]==0){
+                              c_koma2[i-1] = ary_ban[x-1][y-1+i]; ary_banc[x-1][y-1+i] = 9;
+                            } else if((ary_ban[x-1][y-1+i]>=11 && ary_ban[x-1][y-1+i] <=18) || (ary_ban[x-1][y-1+i] >= 31 && ary_ban[x-1][y-1+i] <=36)){
+                              c_koma2[i-1] = ary_ban[x-1][y-1+i]; ary_banc[x-1][y-1+i] = 9;
+                              flag_h2++;
+                            } else if((ary_ban[x-1][y-1+i]>=1 && ary_ban[x-1][y-1+i]<=8) || (ary_ban[x-1][y-1+i] >= 21 && ary_ban[x-1][y-1+i] <=26)) {flag_h2++;}
+                            if(flag_h2 == 2){i = 9;} 
+                            count_masu2++;
+                          }
+                          if(flag_h2 != 2){flag_h2 = 2;}
+
+                          /*右方向*/
+                          for( int i=1; x-1+i<9; i++){
+                            if(ary_ban[x-1+i][y-1]==0){
+                              c_koma3[i-1] = ary_ban[x-1+i][y-1]; ary_banc[x-1+i][y-1] = 9;
+                            } else if((ary_ban[x-1+i][y-1]>=11 && ary_ban[x-1+i][y-1] <=18) || (ary_ban[x-1+i][y-1] >= 31 && ary_ban[x-1+i][y-1] <=36)){
+                              c_koma3[i-1] = ary_ban[x-1+i][y-1]; ary_banc[x-1+i][y-1] = 9;
+                              flag_h2++;
+                            } else if((ary_ban[x-1+i][y-1]>=1 && ary_ban[x-1+i][y-1]<=8) || (ary_ban[x-1+i][y-1] >= 21 && ary_ban[x-1+i][y-1] <=26)) {flag_h2++;}
+                            if(flag_h2 == 3){i = 9;} 
+                            count_masu3++;
+                          }
+                          if(flag_h2 != 3){flag_h2 = 3;}
+
+                          /*左方向*/
+                          for( int i=1; x-1-i>-1; i++){
+                            if(ary_ban[x-1-i][y-1]==0){
+                              c_koma4[i-1] = ary_ban[x-1-i][y-1]; ary_banc[x-1-i][y-1] = 9;
+                            } else if((ary_ban[x-1-i][y-1]>=11 && ary_ban[x-1-i][y-1] <=18) || (ary_ban[x-1-i][y-1] >= 31 && ary_ban[x-1-i][y-1] <=36)){
+                              c_koma4[i-1] = ary_ban[x-1-i][y-1]; ary_banc[x-1-i][y-1] = 9;
+                              flag_h2++;
+                            } else if((ary_ban[x-1-i][y-1]>=1 && ary_ban[x-1-i][y-1]<=8) || (ary_ban[x-1-i][y-1] >= 21 && ary_ban[x-1-i][y-1] <=26)) {flag_h2++;}
+                            if(flag_h2 == 4){i = 9;} 
+                            count_masu4++;
+                          }
+                          if((ary_ban[x-1-1][y-1+1]>=11 || ary_ban[x-1-1][y-1+1] <=18) || ary_ban[x-1-1][y-1+1]==0 || (ary_ban[x-1-1][y-1+1] >= 31 && ary_ban[x-1-1][y-1+1] <=36)){c_koma5[0] = ary_ban[x-1-1][y-1+1]; ary_banc[x-1-1][y-1+1] = 9;}/*左下*/
+                          if((ary_ban[x-1+1][y-1+1]>=11 || ary_ban[x-1+1][y-1+1] <=18) || ary_ban[x-1+1][y-1+1]==0 || (ary_ban[x-1+1][y-1+1] >= 31 && ary_ban[x-1+1][y-1+1] <=36)){c_koma5[1] = ary_ban[x-1+1][y-1+1]; ary_banc[x-1+1][y-1+1] = 9;}/*右下*/
+                          if((ary_ban[x-1-1][y-1-1]>=11 || ary_ban[x-1-1][y-1-1] <=18) || ary_ban[x-1-1][y-1-1]==0 || (ary_ban[x-1-1][y-1-1] >= 31 && ary_ban[x-1-1][y-1-1] <=36)){c_koma5[2] = ary_ban[x-1-1][y-1-1]; ary_banc[x-1-1][y-1-1] = 9;}/*左上*/
+                          if((ary_ban[x-1+1][y-1-1]>=11 || ary_ban[x-1+1][y-1-1] <=18) || ary_ban[x-1+1][y-1-1]==0 || (ary_ban[x-1+1][y-1-1] >= 31 && ary_ban[x-1+1][y-1-1] <=36)){c_koma5[3] = ary_ban[x-1+1][y-1-1]; ary_banc[x-1+1][y-1-1] = 9;}/*右上*/
+                          break;
                         case 24:
                           label1.setText("("+x+","+y+"）の駒は成香(青)"); flag_koma=24; 
                           if((ary_ban[x-1-1][y-1+1]>=11 || ary_ban[x-1-1][y-1+1] <=18) || ary_ban[x-1-1][y-1+1]==0 || (ary_ban[x-1-1][y-1+1] >= 31 && ary_ban[x-1-1][y-1+1] <=36)){c_koma[0] = ary_ban[x-1-1][y-1+1]; ary_banc[x-1-1][y-1+1] = 9;}
@@ -585,6 +723,142 @@ public class syougi extends Application{
                           if((ary_ban[x-1+1][y-1]<=8 && ary_ban[x-1+1][y-1]>=0) || (ary_ban[x-1+1][y-1]>=21 && ary_ban[x-1+1][y-1]<=28)){c_koma[4] = ary_ban[x-1+1][y-1]; ary_banc[x-1+1][y-1] = 9;}
                           if((ary_ban[x-1][y-1+1]<=8 && ary_ban[x-1][y-1+1]>=0) || (ary_ban[x-1][y-1+1]>=21 && ary_ban[x-1][y-1+1]<=28)){c_koma[5] = ary_ban[x-1][y-1+1]; ary_banc[x-1][y-1+1] = 9;}
                           break;
+                        case 32:
+                          label1.setText("("+x+","+y+"）の駒は角(赤)"); flag_koma=12;
+                          count_masu = 0;
+                          count_masu2 = 0;
+                          count_masu3 = 0;
+                          count_masu4 = 0; 
+                          int flag_kaku2 = 0;    
+                          /*左上方向*/
+                          for( int i=1; y-1-i>-1; i++){
+                            if(x-1-i>-i){
+                              if(ary_ban[x-1-i][y-1-i]==0){
+                                c_koma[i-1] = ary_ban[x-1-i][y-1-i]; ary_banc[x-1-i][y-1-i] = 9;
+                              } else if((ary_ban[x-1-i][y-1-i]<=8 && ary_ban[x-1-i][y-1-i]>=1) || (ary_ban[x-1-i][y-1-i]>=21 && ary_ban[x-1-i][y-1-i]<=28)){
+                                c_koma[i-1] = ary_ban[x-1-i][y-1-i]; ary_banc[x-1-i][y-1-i] = 9;
+                                flag_kaku2++;
+                              } else if((ary_ban[x-1-i][y-1-i]>=11 && ary_ban[x-1-i][y-1-i]<=18) || (ary_ban[x-1-i][y-1-i]>=31 && ary_ban[x-1-i][y-1-i]<=38)) {flag_kaku2++;}
+                              if(flag_kaku2 == 1){i = 9;} 
+                              count_masu++;
+                            }
+                            
+                          }
+                          if(flag_kaku2 != 1){flag_kaku2 = 1;}
+
+                          /*左下方向*/
+                          for( int i=1; y-1+i<9; i++){
+                            if(x-1-i>-1){
+                              if(ary_ban[x-1-i][y-1+i]==0){
+                                c_koma2[i-1] = ary_ban[x-1-i][y-1+i]; ary_banc[x-1-i][y-1+i] = 9;
+                              } else if((ary_ban[x-1-i][y-1+i]<=8 && ary_ban[x-1-i][y-1+i]>=1) || (ary_ban[x-1-i][y-1+i]>=21 && ary_ban[x-1-i][y-1+i]<=28)){
+                                c_koma2[i-1] = ary_ban[x-1-i][y-1+i]; ary_banc[x-1-i][y-1+i] = 9;
+                                flag_kaku2++;
+                              } else if((ary_ban[x-1-i][y-1+i]>=11 && ary_ban[x-1-i][y-1+i]<=18) || (ary_ban[x-1-i][y-1+i]>=31 && ary_ban[x-1-i][y-1+i]<=38)) {flag_kaku2++;}
+                              if(flag_kaku2 == 2){i = 9;} 
+                              count_masu2++;
+                            }
+                            
+                          }
+                          if(flag_kaku2 != 2){flag_kaku2 = 2;}
+
+                          /*右上方向*/
+                          for( int i=1; x-1+i<9; i++){
+                            if(y-1-i>-1){
+                              if(ary_ban[x-1+i][y-1-i]==0){
+                                c_koma3[i-1] = ary_ban[x-1+i][y-1-i]; ary_banc[x-1+i][y-1-i] = 9;
+                              } else if((ary_ban[x-1+i][y-1-i]<=8 && ary_ban[x-1+i][y-1-i]>=1) || (ary_ban[x-1+i][y-1-i]>=21 && ary_ban[x-1+i][y-1-i]<=28)){
+                                c_koma3[i-1] = ary_ban[x-1+i][y-1-i]; ary_banc[x-1+i][y-1-i] = 9;
+                                flag_kaku2++;
+                              } else if((ary_ban[x-1+i][y-1-i]>=11 && ary_ban[x-1+i][y-1-i]<=18) || (ary_ban[x-1+i][y-1-i]>=31 && ary_ban[x-1+i][y-1-i]<=38)) {flag_kaku2++;}
+                              if(flag_kaku2 == 3){i = 9;} 
+                              count_masu3++;
+                            }
+                            
+                          }
+                          if(flag_kaku2 != 3){flag_kaku2 = 3;}
+
+                          /*右上方向*/
+                          for( int i=1; x-1+i<9; i++){
+                            if(y-1+i<9){
+                              if(ary_ban[x-1+i][y-1+i]==0){
+                                c_koma4[i-1] = ary_ban[x-1+i][y-1+i]; ary_banc[x-1+i][y-1+i] = 9;
+                              } else if((ary_ban[x-1+i][y-1+i]<=8 && ary_ban[x-1+i][y-1+i]>=1) || (ary_ban[x-1+i][y-1+i]>=21 && ary_ban[x-1+i][y-1+i]<=28)){
+                                c_koma4[i-1] = ary_ban[x-1+i][y-1+i]; ary_banc[x-1+i][y-1+i] = 9;
+                                flag_kaku2++;
+                              } else if((ary_ban[x-1+i][y-1+i]>=11 && ary_ban[x-1+i][y-1+i]<=18) || (ary_ban[x-1+i][y-1+i]>=31 && ary_ban[x-1+i][y-1+i]<=38)) {flag_kaku2++;}
+                              if(flag_kaku2 == 4){i = 9;} 
+                              count_masu4++;
+                            }
+                            
+                          } 
+                          if((ary_ban[x-1][y-1-1]<=8 && ary_ban[x-1][y-1-1]>=0) || (ary_ban[x-1][y-1-1]>=21 && ary_ban[x-1][y-1-1]<=28)){c_koma5[0] = ary_ban[x-1][y-1-1]; ary_banc[x-1][y-1-1] = 9;}/*上*/
+                          if((ary_ban[x-1-1][y-1]<=8 && ary_ban[x-1-1][y-1]>=0) || (ary_ban[x-1-1][y-1]>=21 && ary_ban[x-1-1][y-1]<=28)){c_koma5[1] = ary_ban[x-1-1][y-1]; ary_banc[x-1-1][y-1] = 9;}/*左*/
+                          if((ary_ban[x-1+1][y-1]<=8 && ary_ban[x-1+1][y-1]>=0) || (ary_ban[x-1+1][y-1]>=21 && ary_ban[x-1+1][y-1]<=28)){c_koma5[2] = ary_ban[x-1+1][y-1]; ary_banc[x-1+1][y-1] = 9;}/*右*/
+                          if((ary_ban[x-1][y-1+1]<=8 && ary_ban[x-1][y-1+1]>=0) || (ary_ban[x-1][y-1+1]>=21 && ary_ban[x-1][y-1+1]<=28)){c_koma5[3] = ary_ban[x-1][y-1+1]; ary_banc[x-1][y-1+1] = 9;}/*下*/
+                          break;
+                        case 33:
+                          label1.setText("("+x+","+y+"）の駒は飛車(赤)"); flag_koma=13; 
+                          count_masu = 0;
+                          count_masu2 = 0;
+                          count_masu3 = 0;
+                          count_masu4 = 0; 
+                          int flag_h2 = 0;    
+                          /*上方向*/
+                          for( int i=1; y-1-i>-1; i++){
+                            if(ary_ban[x-1][y-1-i]==0){
+                              c_koma[i-1] = ary_ban[x-1][y-1-i]; ary_banc[x-1][y-1-i] = 9;
+                            } else if((ary_ban[x-1][y-1-i]<=8 && ary_ban[x-1][y-1-i]>=1) || (ary_ban[x-1][y-1-i]>=21 && ary_ban[x-1][y-1-i]<=28)){
+                              c_koma[i-1] = ary_ban[x-1][y-1-i]; ary_banc[x-1][y-1-i] = 9;
+                              flag_h2++;
+                            } else if((ary_ban[x-1][y-1-i]>=11 && ary_ban[x-1][y-1-i]<=18) || (ary_ban[x-1][y-1-i]>=31 && ary_ban[x-1][y-1-i]<=38)) {flag_h2++;}
+                            if(flag_h2 == 1){i = 9;} 
+                            count_masu++;
+                          }
+                          if(flag_h2 != 1){flag_h2 = 1;}
+
+                          /*下方向*/
+                          for( int i=1; y-1+i<9; i++){
+                            if(ary_ban[x-1][y-1+i]==0){
+                              c_koma2[i-1] = ary_ban[x-1][y-1+i]; ary_banc[x-1][y-1+i] = 9;
+                            } else if((ary_ban[x-1][y-1+i]<=8 && ary_ban[x-1][y-1+i]>=1) || (ary_ban[x-1][y-1+i]>=21 && ary_ban[x-1][y-1+i]<=28)){
+                              c_koma2[i-1] = ary_ban[x-1][y-1+i]; ary_banc[x-1][y-1+i] = 9;
+                              flag_h2++;
+                            } else if((ary_ban[x-1][y-1+i]>=11 && ary_ban[x-1][y-1+i]<=18) || (ary_ban[x-1][y-1+i]>=31 && ary_ban[x-1][y-1+i]<=38)) {flag_h2++;}
+                            if(flag_h2 == 2){i = 9;} 
+                            count_masu2++;
+                          }
+                          if(flag_h2 != 2){flag_h2 = 2;}
+
+                          /*右方向*/
+                          for( int i=1; x-1+i<9; i++){
+                            if(ary_ban[x-1+i][y-1]==0){
+                              c_koma3[i-1] = ary_ban[x-1+i][y-1]; ary_banc[x-1+i][y-1] = 9;
+                            } else if((ary_ban[x-1+i][y-1]<=8 && ary_ban[x-1+i][y-1]>=1) || (ary_ban[x-1+i][y-1]>=21 && ary_ban[x-1+i][y-1]<=28)){
+                              c_koma3[i-1] = ary_ban[x-1+i][y-1]; ary_banc[x-1+i][y-1] = 9;
+                              flag_h2++;
+                            } else if((ary_ban[x-1+i][y-1]>=11 && ary_ban[x-1+i][y-1]<=18) || (ary_ban[x-1+i][y-1]>=31 && ary_ban[x-1+i][y-1]<=38)) {flag_h2++;}
+                            if(flag_h2 == 3){i = 9;} 
+                            count_masu3++;
+                          }
+                          if(flag_h2 != 3){flag_h2 = 3;}
+
+                          /*左方向*/
+                          for( int i=1; x-1-i>-1; i++){
+                            if(ary_ban[x-1-i][y-1]==0){
+                              c_koma4[i-1] = ary_ban[x-1-i][y-1]; ary_banc[x-1-i][y-1] = 9;
+                            } else if((ary_ban[x-1-i][y-1]<=8 && ary_ban[x-1-i][y-1]>=1) || (ary_ban[x-1-i][y-1]>=21 && ary_ban[x-1-i][y-1]<=28)){
+                              c_koma4[i-1] = ary_ban[x-1-i][y-1]; ary_banc[x-1-i][y-1] = 9;
+                              flag_h2++;
+                            } else if((ary_ban[x-1-i][y-1]>=11 && ary_ban[x-1-i][y-1]<=18) || (ary_ban[x-1-i][y-1]>=31 && ary_ban[x-1-i][y-1]<=38)) {flag_h2++;}
+                            if(flag_h2 == 4){i = 9;} 
+                            count_masu4++;
+                          }
+                          if((ary_ban[x-1-1][y-1-1]<=8 && ary_ban[x-1-1][y-1-1]>=0) || (ary_ban[x-1-1][y-1-1]>=21 && ary_ban[x-1-1][y-1-1]<=28)){c_koma5[0] = ary_ban[x-1-1][y-1-1]; ary_banc[x-1-1][y-1-1] = 9;}/*左上*/
+                          if((ary_ban[x-1+1][y-1-1]<=8 && ary_ban[x-1+1][y-1-1]>=0) || (ary_ban[x-1+1][y-1-1]>=21 && ary_ban[x-1+1][y-1-1]<=28)){c_koma5[1] = ary_ban[x-1+1][y-1-1]; ary_banc[x-1+1][y-1-1] = 9;}/*右上*/
+                          if((ary_ban[x-1-1][y-1+1]<=8 && ary_ban[x-1-1][y-1+1]>=0) || (ary_ban[x-1-1][y-1+1]>=21 && ary_ban[x-1-1][y-1+1]<=28)){c_koma5[2] = ary_ban[x-1-1][y-1+1]; ary_banc[x-1-1][y-1+1] = 9;}/*左下*/
+                          if((ary_ban[x-1+1][y-1+1]<=8 && ary_ban[x-1+1][y-1+1]>=0) || (ary_ban[x-1+1][y-1+1]>=21 && ary_ban[x-1+1][y-1+1]<=28)){c_koma5[3] = ary_ban[x-1+1][y-1+1]; ary_banc[x-1+1][y-1+1] = 9;}/*右下*/
+                          break;
                         case 34:
                           label1.setText("("+x+","+y+"）の駒は成香(赤)"); flag_koma=34; 
                           if((ary_ban[x-1-1][y-1-1]<=8 && ary_ban[x-1-1][y-1-1]>=0) || (ary_ban[x-1-1][y-1-1]>=21 && ary_ban[x-1-1][y-1-1]<=28)){c_koma[0] = ary_ban[x-1-1][y-1-1]; ary_banc[x-1-1][y-1-1] = 9;}
@@ -710,6 +984,44 @@ public class syougi extends Application{
                           ary_ban[temp_x-1+1][temp_y-1] = c_koma[4];
                           ary_ban[temp_x-1][temp_y-1-1] = c_koma[5];
                           break;
+                        case 22:
+                          label1.setText("("+x+","+y+"）の駒は馬(青)"); 
+                          for( int i=1; temp_y-1-i<count_masu; i++){
+                            ary_ban[temp_x-1-i][temp_y-1-i] = c_koma[i-1]; 
+                          }
+                          for( int i=1; temp_y-1+i<count_masu2; i++){
+                            ary_ban[temp_x-1-i][temp_y-1+i] = c_koma2[i-1]; 
+                          }
+                          for( int i=1; temp_x-1+i<count_masu3; i++){
+                            ary_ban[temp_x-1+i][temp_y-1-i] = c_koma3[i-1]; 
+                          }
+                          for( int i=1; temp_x-1+i<count_masu4; i++){
+                            ary_ban[temp_x-1+i][temp_y+i] = c_koma4[i-1]; 
+                          }
+                          ary_ban[temp_x-1][temp_y-1+1] = c_koma5[0];
+                          ary_ban[temp_x-1-1][temp_y-1] = c_koma5[1];
+                          ary_ban[temp_x-1+1][temp_y-1] = c_koma5[2];
+                          ary_ban[temp_x-1][temp_y-1-1] = c_koma5[3];
+                          break;
+                        case 23:
+                          label1.setText("("+x+","+y+"）の駒は龍(青)"); 
+                          for( int i=1; temp_y-1-i<count_masu; i++){
+                            ary_ban[temp_x-1][temp_y-1-i] = c_koma[i-1]; 
+                          }
+                          for( int i=1; temp_y-1+i<count_masu2; i++){
+                            ary_ban[temp_x-1][temp_y-1+i] = c_koma2[i-1]; 
+                          }
+                          for( int i=1; temp_x-1+i<count_masu3; i++){
+                            ary_ban[temp_x-1+i][temp_y-1] = c_koma3[i-1]; 
+                          }
+                          for( int i=1; temp_x-1-i<count_masu4; i++){
+                            ary_ban[temp_x-1-i][temp_y-1] = c_koma4[i-1]; 
+                          }
+                          ary_ban[temp_x-1-1][temp_y-1+1] = c_koma5[0];
+                          ary_ban[temp_x-1+1][temp_y-1+1] = c_koma5[1];
+                          ary_ban[temp_x-1-1][temp_y-1-1] = c_koma5[2];
+                          ary_ban[temp_x-1+1][temp_y-1-1] = c_koma5[3]; 
+                          break;
                         case 24:
                           label1.setText("("+x+","+y+"）の駒は成香(青)"); 
                           ary_ban[temp_x-1-1][temp_y-1+1] = c_koma[0];
@@ -828,6 +1140,44 @@ public class syougi extends Application{
                           ary_ban[temp_x-1-1][temp_y-1] = c_koma[3];
                           ary_ban[temp_x-1+1][temp_y-1] = c_koma[4];
                           ary_ban[temp_x-1][temp_y-1+1] = c_koma[5];
+                          break;
+                        case 32:
+                          label1.setText("("+x+","+y+"）の駒は馬(赤)"); 
+                          for( int i=1; temp_y-1-i<count_masu; i++){
+                            ary_ban[temp_x-1-i][temp_y-1-i] = c_koma[i-1]; 
+                          }
+                          for( int i=1; temp_y-1+i<count_masu2; i++){
+                            ary_ban[temp_x-1-i][temp_y-1+i] = c_koma2[i-1]; 
+                          }
+                          for( int i=1; temp_x-1+i<count_masu3; i++){
+                            ary_ban[temp_x-1+i][temp_y-1-i] = c_koma3[i-1]; 
+                          }
+                          for( int i=1; temp_x-1+i<count_masu4; i++){
+                            ary_ban[temp_x-1+i][temp_y+i] = c_koma4[i-1]; 
+                          }
+                          ary_ban[temp_x-1][temp_y-1-1] = c_koma5[0];
+                          ary_ban[temp_x-1-1][temp_y-1] = c_koma5[1];
+                          ary_ban[temp_x-1+1][temp_y-1] = c_koma5[2];
+                          ary_ban[temp_x-1][temp_y-1+1] = c_koma5[3];
+                          break;
+                        case 33:
+                          label1.setText("("+x+","+y+"）の駒は龍(赤)");
+                          for( int i=1; temp_y-1-i<count_masu; i++){
+                            ary_ban[temp_x-1][temp_y-1-i] = c_koma[i-1]; 
+                          }
+                          for( int i=1; temp_y-1+i<count_masu2; i++){
+                            ary_ban[temp_x-1][temp_y-1+i] = c_koma2[i-1]; 
+                          }
+                          for( int i=1; temp_x-1+i<count_masu3; i++){
+                            ary_ban[temp_x-1+i][temp_y-1] = c_koma3[i-1]; 
+                          }
+                          for( int i=1; temp_x-1-i<count_masu4; i++){
+                            ary_ban[temp_x-1-i][temp_y-1] = c_koma4[i-1]; 
+                          }
+                          ary_ban[temp_x-1-1][temp_y-1-1] = c_koma5[0];
+                          ary_ban[temp_x-1+1][temp_y-1-1] = c_koma5[1];
+                          ary_ban[temp_x-1-1][temp_y-1+1] = c_koma5[2];
+                          ary_ban[temp_x-1+1][temp_y-1+1] = c_koma5[3]; 
                           break;
                         case 34:
                           label1.setText("("+x+","+y+"）の駒は成香(赤)");
